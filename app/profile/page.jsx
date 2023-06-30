@@ -8,6 +8,7 @@ import Profile from "@components/Profile";
 
 const MyProfile = () => {
   const { data: session } = useSession();
+  const router = useRouter();
 
   const [posts, setPosts] = useState([]);
 
@@ -22,11 +23,29 @@ const MyProfile = () => {
     if (session?.user.id) {
       fetchQuotes();
     }
-  }, []);
+  }, [session?.user.id]);
 
-  const handleEdit = () => {};
+  const handleEdit = (post) => {
+    router.push(`/update-quote?id=${post._id}`);
+  };
 
-  const handleDelete = async () => {};
+  const handleDelete = async (post) => {
+    const isConfirmed = confirm("Are you sure you want to delete this quote?");
+
+    if (isConfirmed) {
+      try {
+        await fetch(`/api/quote/${post._id.toString()}`, {
+          method: "DELETE",
+        });
+
+        const filteredPosts = posts.filter((p) => p._id !== post._id);
+
+        setPosts(filteredPosts);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
 
   return (
     <Profile
