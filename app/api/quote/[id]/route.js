@@ -1,4 +1,3 @@
-import User from "@models/user";
 import Quote from "@models/quote";
 import { connectToDatabase } from "@utils/database";
 
@@ -24,7 +23,7 @@ export const GET = async (req, { params }) => {
 // PATCH
 
 export const PATCH = async (req, { params }) => {
-  const { quote, tag } = await req.json();
+  const { quote, author } = await req.json();
 
   try {
     await connectToDatabase();
@@ -36,11 +35,11 @@ export const PATCH = async (req, { params }) => {
     }
 
     existingQuote.quote = quote;
-    existingQuote.tag = tag;
+    existingQuote.author = author;
 
     await existingQuote.save();
 
-    return new Response("Successfully updated the Prompts", { status: 200 });
+    return new Response("Successfully updated the Quotes", { status: 200 });
   } catch (error) {
     return new Response("Failed to update quote", { status: 500 });
   }

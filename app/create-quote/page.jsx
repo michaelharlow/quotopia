@@ -13,7 +13,7 @@ const CreateQuote = () => {
   const [submitting, setSubmitting] = useState(false);
   const [post, setPost] = useState({
     quote: "",
-    tag: "",
+    author: "",
   });
 
   const createQuote = async (e) => {
@@ -26,7 +26,7 @@ const CreateQuote = () => {
         body: JSON.stringify({
           quote: post.quote,
           userId: session?.user.id,
-          tag: post.tag,
+          author: post.author,
         }),
       });
 

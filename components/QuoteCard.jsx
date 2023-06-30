@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useSession } from "next-auth/react";
 import { usePathname, useRouter } from "next/navigation";
 
-const QuoteCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
+const QuoteCard = ({ post, handleAuthorClick, handleEdit, handleDelete }) => {
   const [copied, setCopied] = useState("");
 
   const pathName = usePathname();
@@ -29,11 +29,11 @@ const QuoteCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
             className="rounded-full object-contain"
           />
 
-          <div className="flex flex-col">
-            <h3 className="font-satoshi font-semibold text-gray-900">
+          <div className="flex flex-col truncate">
+            <h3 className="font-satoshi font-semibold text-gray-900 truncate">
               {post.creator.username}
             </h3>
-            <p className="font-inter text-sm text-gray-500">
+            <p className="font-inter text-sm text-gray-500 truncate">
               {post.creator.email}
             </p>
           </div>
@@ -52,12 +52,16 @@ const QuoteCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
           />
         </div>
       </div>
-      <p className="my-4 font-satoshi text-sm to-gray-700">{post.quote}</p>
+      <p className="my-4 font-satoshi text-sm to-gray-700">
+        {'"'}
+        {post.quote}
+        {'"'}
+      </p>
       <p
-        className="font-inter text-sm blue_gradient cursor-pointer"
-        onClick={() => handleTagClick && handleTagClick(post.tag)}
+        className="font-inter text-sm blue_gradient cursor-pointer text-right font-bold"
+        onClick={() => handleAuthorClick && handleAuthorClick(post.author)}
       >
-        {post.tag}
+        - {post.author}
       </p>
 
       {session?.user.id === post.creator._id && pathName === "/profile" && (

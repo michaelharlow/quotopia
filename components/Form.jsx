@@ -30,17 +30,17 @@ const Form = ({ type, post, setPost, submitting, handleSubmit }) => {
         </label>
         <label>
           <span className="font-satoshi font-semibold text-base text-gray-700">
-            Tag{" "}
+            Author{" "}
             <span className="font-normal">
-              (#inspirational, #business, #cool)
+              (Seneca, Obama, Abe Lincoln, etc.)
             </span>
           </span>
           <input
-            value={post.tag}
+            value={post.author}
             onChange={(e) => {
-              setPost({ ...post, tag: e.target.value });
+              setPost({ ...post, author: e.target.value });
             }}
-            placeholder="#tag"
+            placeholder="Author"
             required
             className="form_input"
           ></input>

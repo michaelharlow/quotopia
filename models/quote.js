@@ -1,3 +1,4 @@
+import User from "./user";
 import { Schema, model, models } from "mongoose";
 
 const QuoteSchema = new Schema({
@@ -9,9 +10,9 @@ const QuoteSchema = new Schema({
     type: String,
     required: [true, "Quote is required"],
   },
-  tag: {
+  author: {
     type: String,
-    required: [true, "Tag is required"],
+    required: [true, "Author is required"],
   },
 });
 

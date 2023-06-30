@@ -2,7 +2,7 @@ import { connectToDatabase } from "@utils/database";
 import Quote from "@models/quote";
 
 export const POST = async (req) => {
-  const { userId, quote, tag } = await req.json();
+  const { userId, quote, author } = await req.json();
 
   try {
     await connectToDatabase();
@@ -10,7 +10,7 @@ export const POST = async (req) => {
     const newQuote = new Quote({
       creator: userId,
       quote,
-      tag,
+      author,
     });
 
     await newQuote.save();

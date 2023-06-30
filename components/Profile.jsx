@@ -8,15 +8,17 @@ const Profile = ({ name, desc, data, handleEdit, handleDelete }) => {
       </h1>
       <p className="desc text-left">{desc}</p>
 
-      <div className="mt-10 quote_layout">
-        {data.map((post) => (
-          <QuoteCard
-            key={post._id}
-            post={post}
-            handleEdit={() => handleEdit && handleEdit(post)}
-            handleDelete={() => handleDelete && handleDelete(post)}
-          />
-        ))}
+      <div className="feed">
+        <div className="quote_layout">
+          {data.map((post) => (
+            <QuoteCard
+              key={post._id}
+              post={post}
+              handleEdit={() => handleEdit && handleEdit(post)}
+              handleDelete={() => handleDelete && handleDelete(post)}
+            />
+          ))}
+        </div>
       </div>
     </section>
   );

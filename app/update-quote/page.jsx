@@ -13,7 +13,7 @@ const EditQuote = () => {
   const [submitting, setSubmitting] = useState(false);
   const [post, setPost] = useState({
     quote: "",
-    tag: "",
+    author: "",
   });
 
   useEffect(() => {
@@ -23,7 +23,7 @@ const EditQuote = () => {
 
       setPost({
         quote: data.quote,
-        tag: data.tag,
+        author: data.author,
       });
     };
 
@@ -45,7 +45,7 @@ const EditQuote = () => {
         method: "PATCH",
         body: JSON.stringify({
           quote: post.quote,
-          tag: post.tag,
+          author: post.author,
         }),
       });
 
