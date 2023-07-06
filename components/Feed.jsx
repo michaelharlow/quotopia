@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import QuoteCard from "./QuoteCard.jsx";
+import QuoteCardSkeleton from "./QuoteCardSkeleton.jsx";
 
 const QuoteCardList = ({ data, handleAuthorClick }) => {
   return (
@@ -20,6 +21,10 @@ const QuoteCardList = ({ data, handleAuthorClick }) => {
 const Feed = () => {
   const [searchText, setSearchText] = useState("");
   const [posts, setPosts] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  // better way to do this?
+  const skeletonData = [10, 2, 5, 3, 8, 12, 7, 6, 9];
 
   const handleSearchChange = (e) => {
     setSearchText(e.target.value);
@@ -45,6 +50,7 @@ const Feed = () => {
       );
 
       setPosts(filteredData);
+      setIsLoading(false);
     };
 
     fetchQuotes();
@@ -63,7 +69,15 @@ const Feed = () => {
         />
       </form>
 
-      <QuoteCardList data={posts} handleAuthorClick={handleAuthorClick} />
+      {isLoading ? (
+        <div className="mt-16 quote_layout">
+          {skeletonData.map((size, index) => (
+            <QuoteCardSkeleton size={size} key={index} />
+          ))}
+        </div>
+      ) : (
+        <QuoteCardList data={posts} handleAuthorClick={handleAuthorClick} />
+      )}
     </section>
   );
 };
