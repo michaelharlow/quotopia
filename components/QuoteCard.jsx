@@ -9,6 +9,7 @@ const QuoteCard = ({ post, handleAuthorClick, handleEdit, handleDelete }) => {
   const [copied, setCopied] = useState("");
 
   const pathName = usePathname();
+  const router = useRouter();
   const { data: session } = useSession();
 
   const handleCopy = () => {
@@ -20,7 +21,10 @@ const QuoteCard = ({ post, handleAuthorClick, handleEdit, handleDelete }) => {
   return (
     <div className="quote_card">
       <div className="flex justify-between items-start gap-5">
-        <div className="flex-1 flex justify-start items-center gap-3 cursor-pointer">
+        <div
+          className="flex-1 flex justify-start items-center gap-3 cursor-pointer"
+          onClick={() => router.push(`/profile/${post.creator._id}`)}
+        >
           <Image
             src={post.creator.image}
             alt="user_image"
