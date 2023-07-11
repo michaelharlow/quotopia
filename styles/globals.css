@@ -73,6 +73,12 @@
 
 /* Tailwind Styles */
 
+@layer components {
+  .skeleton {
+    @apply bg-gray-200 rounded-xl animate-pulse;
+  }
+}
+
 .app {
   @apply relative z-10 flex justify-center items-center flex-col max-w-7xl mx-auto sm:px-16 px-6;
 }
