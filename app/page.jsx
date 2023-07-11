@@ -1,9 +1,4 @@
-//import Feed from "@components/Feed";
-import dynamic from "next/dynamic";
-
-const Feed = dynamic(() => import("@components/Feed"), {
-  loading: () => <p className="text-8xl">Loading...</p>,
-});
+import Feed from "@components/Feed";
 
 const Home = () => {
   return (
