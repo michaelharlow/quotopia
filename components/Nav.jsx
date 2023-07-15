@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 import { signIn, signOut, useSession, getProviders } from "next-auth/react";
 
-const Nav = () => {
+const Nav = ({ themeHandler }) => {
   const { data: session } = useSession();
 
   const [providers, setProviders] = useState(null);
@@ -36,6 +36,9 @@ const Nav = () => {
 
       {/* Desktop Navigation */}
       <div className="sm:flex hidden">
+        <button type="button" onClick={themeHandler} className="black_btn">
+          Theme
+        </button>
         {session?.user ? (
           <div className="flex gap-3 md:gap-5">
             <Link href="/create-quote" className="black_btn">

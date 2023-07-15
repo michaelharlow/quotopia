@@ -56,7 +56,7 @@ const QuoteCard = ({ post, handleAuthorClick, handleEdit, handleDelete }) => {
           />
         </div>
       </div>
-      <p className="my-4 font-satoshi text-sm text-gray-700">
+      <p className="my-4 font-satoshi text-sm text-gray-700 dark:text-slate-200">
         {'"'}
         {post.quote}
         {'"'}
