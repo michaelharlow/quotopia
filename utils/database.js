@@ -13,14 +13,12 @@ export const connectToDatabase = async () => {
   try {
     await mongoose.connect(process.env.MONGODB_URI, {
       dbName: "share_quote",
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
     });
 
     isConnected = true;
 
     console.log("MongoDB connected");
   } catch (error) {
-    console.log(error);
+    console.log("[-] MangoDB Connection error: ", error.message);
   }
 };

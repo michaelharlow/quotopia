@@ -47,6 +47,7 @@ const CreateQuote = () => {
       setPost={setPost}
       submitting={submitting}
       handleSubmit={createQuote}
+      characterLimit={500}
     />
   );
 };

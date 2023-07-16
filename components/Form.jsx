@@ -1,6 +1,18 @@
-import Link from "next/link";
+"use client";
 
-const Form = ({ type, post, setPost, submitting, handleSubmit }) => {
+import Link from "next/link";
+import { useState } from "react";
+
+const Form = ({
+  type,
+  post,
+  setPost,
+  submitting,
+  handleSubmit,
+  characterLimit,
+}) => {
+  const [characterCount, setCharacterCount] = useState(0);
+
   return (
     <section className="w-full max-w-full flex-start flex-col">
       <h1 className="head_text text-left">
@@ -18,9 +30,14 @@ const Form = ({ type, post, setPost, submitting, handleSubmit }) => {
           <span className="font-satoshi font-semibold text-base text-gray-700">
             Your Quote
           </span>
+          <p className="font-satoshi text-gray-500 text-sm">
+            {`Character limit: ${characterCount}/500`}
+          </p>
           <textarea
             value={post.quote}
             onChange={(e) => {
+              if (e.target.value.length > characterLimit) return;
+              setCharacterCount(e.target.value.length);
               setPost({ ...post, quote: e.target.value });
             }}
             placeholder="Enter your quote here..."
@@ -38,6 +55,7 @@ const Form = ({ type, post, setPost, submitting, handleSubmit }) => {
           <input
             value={post.author}
             onChange={(e) => {
+              if (e.target.value.length > 25) return;
               setPost({ ...post, author: e.target.value });
             }}
             placeholder="Author"

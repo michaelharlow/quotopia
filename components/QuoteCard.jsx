@@ -23,7 +23,13 @@ const QuoteCard = ({ post, handleAuthorClick, handleEdit, handleDelete }) => {
       <div className="flex justify-between items-start gap-5">
         <div
           className="flex-1 flex justify-start items-center gap-3 cursor-pointer"
-          onClick={() => router.push(`/profile/${post.creator._id}`)}
+          onClick={() => {
+            if (session?.user.id === post.creator._id) {
+              router.push("/profile");
+              return;
+            }
+            router.push(`/profile/${post.creator._id}`);
+          }}
         >
           <Image
             src={post.creator.image}
@@ -38,7 +44,7 @@ const QuoteCard = ({ post, handleAuthorClick, handleEdit, handleDelete }) => {
               {post.creator.username}
             </h3>
             <p className="font-inter text-sm text-gray-500 truncate">
-              {post.creator.email}
+              @{post.creator.email.slice(0, post.creator.email.indexOf("@"))}
             </p>
           </div>
         </div>
@@ -56,7 +62,7 @@ const QuoteCard = ({ post, handleAuthorClick, handleEdit, handleDelete }) => {
           />
         </div>
       </div>
-      <p className="my-4 font-satoshi text-sm text-gray-700">
+      <p className="my-4 font-satoshi text-sm text-gray-700 overflow-hidden overflow-ellipsis">
         {'"'}
         {post.quote}
         {'"'}
