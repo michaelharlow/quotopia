@@ -41,7 +41,7 @@ const Feed = () => {
       const response = await fetch("/api/quote");
       const data = await response.json();
 
-      filteredData = data.filter(
+      const filteredData = data.filter(
         (post) =>
           searchRegex.test(post.creator.username) ||
           searchRegex.test(post.creator.email) ||
