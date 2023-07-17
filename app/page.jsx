@@ -9,7 +9,7 @@ const Home = () => {
         <span className="orange_gradient text-center"> Amazing Quotes</span>
       </h1>
       <p className="desc text-center">
-        Quotopia is an open-source Quote Collection for discovering, creating,
+        Quotopia is an open-source Quote Collection for discovering, reading,
         and sharing awesome quotes
       </p>
 

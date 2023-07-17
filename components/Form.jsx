@@ -19,8 +19,7 @@ const Form = ({
         <span className="blue_gradient">{type} Post</span>
       </h1>
       <p className="desc text-left max-w-md">
-        {type} and share amazing quotes with the world, and let your imagination
-        run wild.
+        {type} and share amazing quotes with the world!
       </p>
       <form
         onSubmit={handleSubmit}
@@ -36,9 +35,16 @@ const Form = ({
           <textarea
             value={post.quote}
             onChange={(e) => {
-              if (e.target.value.length > characterLimit) return;
-              setCharacterCount(e.target.value.length);
-              setPost({ ...post, quote: e.target.value });
+              if (e.target.value.length < characterLimit) {
+                setCharacterCount(e.target.value.length);
+                setPost({ ...post, quote: e.target.value });
+              } else {
+                setCharacterCount(characterLimit);
+                setPost({
+                  ...post,
+                  quote: e.target.value.substring(0, characterLimit),
+                });
+              }
             }}
             placeholder="Enter your quote here..."
             required
