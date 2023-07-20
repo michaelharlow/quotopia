@@ -21,40 +21,42 @@ const QuoteCardList = ({ data, handleAuthorClick }) => {
 const Feed = () => {
   const [searchText, setSearchText] = useState("");
   const [posts, setPosts] = useState([]);
+  const [searchPosts, setSearchPosts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   // better way to do this?
   const skeletonData = [10, 2, 5, 3, 8, 12, 7, 6, 9];
 
   const handleSearchChange = (e) => {
+    const searchRegex = new RegExp(searchText, "i");
+
+    const filteredData = posts.filter(
+      (post) =>
+        searchRegex.test(post.creator.username) ||
+        searchRegex.test(post.creator.email) ||
+        searchRegex.test(post.quote) ||
+        searchRegex.test(post.author)
+    );
+
     setSearchText(e.target.value);
+    setSearchPosts(filteredData);
   };
 
   const handleAuthorClick = (author) => {
     setSearchText(author);
   };
 
+  const fetchQuotes = async () => {
+    const response = await fetch("/api/quote");
+    const data = await response.json();
+
+    setPosts(data);
+    setIsLoading(false);
+  };
+
   useEffect(() => {
-    const fetchQuotes = async () => {
-      const searchRegex = new RegExp(searchText, "i");
-
-      const response = await fetch("/api/quote");
-      const data = await response.json();
-
-      const filteredData = data.filter(
-        (post) =>
-          searchRegex.test(post.creator.username) ||
-          searchRegex.test(post.creator.email) ||
-          searchRegex.test(post.quote) ||
-          searchRegex.test(post.author)
-      );
-
-      setPosts(filteredData);
-      setIsLoading(false);
-    };
-
     fetchQuotes();
-  }, [searchText]);
+  }, []);
 
   return (
     <section className="feed">
@@ -76,7 +78,10 @@ const Feed = () => {
           ))}
         </div>
       ) : (
-        <QuoteCardList data={posts} handleAuthorClick={handleAuthorClick} />
+        <QuoteCardList
+          data={searchText ? searchPosts : posts}
+          handleAuthorClick={handleAuthorClick}
+        />
       )}
     </section>
   );
