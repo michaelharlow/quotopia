@@ -66,6 +66,7 @@ const EditQuote = () => {
       setPost={setPost}
       submitting={submitting}
       handleSubmit={updateQuote}
+      characterLimit={500}
     />
   );
 };
